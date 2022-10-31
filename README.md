@@ -34,7 +34,9 @@ const mnemonic = Bip39.generateMnemonic(128);
 const hexSeed = Bip39.mnemonicToSeedSync(mnemonic).toString('hex');
 
 // Generate new seed for account
-const { childSeed, chainCode} = derivePath("m/0'/0'/0'", hexSeed);
+const accIndex = 0;
+const path = `m/44'/0'/${accIndex}'/0'`; // Path used by Leo Wallet
+const { seed: childSeed, chainCode} = derivePath(path, hexSeed);
 
 // Convert to PrivateKey using Also SDK
 const privateKey = AleoSDK.PrivateKey.from_seed_unchecked(childSeed);
